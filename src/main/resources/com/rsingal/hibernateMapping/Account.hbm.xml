@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.rsingal.entity.Account" table="ACCOUNT">
+		<id name="accountId" type="integer" column="ID_ACCOUNT">
+			<generator class="increment"></generator>
+		</id>
+		<property name="bankName" type="string">
+			<column name="BANK_NAME" length="32" />
+		</property>
+		<property name="accountNumber" type="integer" column="ACCOUNT_NUMBER" />
+		
+		<!-- Account and Employee table have many to one mapping -->
+		<many-to-one name="employee" column="FK_EMPLOYEE" class="com.rsingal.entity.Employee" />
+	</class>
+</hibernate-mapping>

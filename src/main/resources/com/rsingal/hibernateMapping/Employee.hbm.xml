@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.rsingal.entity.Employee" table="EMPLOYEE">
+		<id name="employeeId" type="integer" column="ID_EMPLOYEE">
+			<generator class="increment"></generator>
+		</id>
+		<property name="employeeName" type="string">
+			<column name="EMPLOYEE_NAME" length="32" not-null="true" />
+		</property>
+
+		<!-- Employee and Address table have one to one mapping, but its implemented using many-to-one element and unique="true" -->
+		<many-to-one name="address" column="FK_ADDRESS" class="com.rsingal.entity.Address" cascade="all" unique="true" not-null="true" />
+	
+		<!-- Employee and Account table have one to many mapping -->
+		<!-- For inverse tag, refer: https://www.mkyong.com/hibernate/inverse-true-example-and-explanation/ -->
+		<set name="accounts" table="ACCOUNT" cascade="all" inverse="true" lazy="true" fetch="select" >
+			<key>
+				<column name="FK_EMPLOYEE" not-null="true" />
+			</key>
+			<one-to-many class="com.rsingal.entity.Account" />
+		</set>
+
+		<!-- Employee and Company table have many to one mapping -->
+		<many-to-one name="company" column="FK_COMPANY" class="com.rsingal.entity.Company" cascade="save-update" />
+		
+		<!-- Employee and Training table have many to many mapping via EMP_TRNG_MAPPING table -->
+		<set name="trainings" table="EMP_TRNG_MAPPING" cascade="save-update">
+			<key column="FK_EMPLOYEE"/>
+			<many-to-many column="FK_TRAINING" class="com.rsingal.entity.Training"/>
+		</set>
+		
+		<!-- Employee and Training table have many to many mapping via EMP_TRNG_MAPPING_EXTENDED table too -->
+		<set name="empTrngMappingExts" table="EMP_TRNG_MAPPING_EXTENDED" cascade="all-delete-orphan" inverse="true" lazy="true" fetch="select" >
+			<key>
+				<column name="FK_EMPLOYEE" not-null="true" />
+			</key>
+			<one-to-many class="com.rsingal.entity.EmpTrngMappingExtended"/>
+		</set>
+	</class>
+</hibernate-mapping>

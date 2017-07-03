@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+
+<Configuration status="WARN">
+	<Properties>
+		<Property name="log-path">/home/rsingal/workspace/HibernateXML/log
+		</Property>
+	</Properties>
+	<Appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout>
+				<pattern>%d{dd/MMM/yyyy|HH:mm:ss.SSS}|%-5level|%t|%c{1}.%M(): %m%n</pattern>
+			</PatternLayout>
+		</Console>
+		<RollingFile name="RollingFile" fileName="${log-path}/hibernateXml.log"
+			filePattern="${log-path}/hibernateXml-%d{yyyy-MM-dd}-%i.log">
+			<PatternLayout>
+				<pattern>%d{dd/MMM/yyyy|HH:mm:ss.SSS}|%-5level|%t|%c{1}.%M(): %m%n</pattern>
+			</PatternLayout>
+			<Policies>
+				<SizeBasedTriggeringPolicy size="1 KB" />
+			</Policies>
+			<DefaultRolloverStrategy max="4" />
+		</RollingFile>
+	</Appenders>
+	<Loggers>
+		<Logger name="com.rsingal" level="trace" additivity="false">
+			<appender-ref ref="Console" />
+		</Logger>
+		<Root level="error" additivity="false">
+			<AppenderRef ref="Console" />
+		</Root>
+	</Loggers>
+</Configuration>
+

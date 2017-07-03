@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.rsingal.entity.EmpTrngMappingExtended" table="EMP_TRNG_MAPPING_EXTENDED">
+		<composite-id name="empTrngMappingExtId" class="com.rsingal.entity.EmpTrngMappingExtendedId">
+			<key-many-to-one name="employee" column="FK_EMPLOYEE" class="com.rsingal.entity.Employee" />
+			<key-many-to-one name="training" column="FK_TRAINING " class="com.rsingal.entity.Training" />
+		</composite-id>
+		
+		<property name="status" type="integer">
+			<column name="status" length="1" />
+		</property>
+	</class>
+</hibernate-mapping>
