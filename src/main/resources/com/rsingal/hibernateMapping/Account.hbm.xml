@@ -10,8 +10,9 @@
 			<column name="BANK_NAME" length="32" />
 		</property>
 		<property name="accountNumber" type="integer" column="ACCOUNT_NUMBER" />
-		
+
 		<!-- Account and Employee table have many to one mapping -->
-		<many-to-one name="employee" column="FK_EMPLOYEE" class="com.rsingal.entity.Employee" />
+		<many-to-one name="employee" column="EMPLOYEE_ID_EMPLOYEE"
+			class="com.rsingal.entity.Employee" />
 	</class>
 </hibernate-mapping>

@@ -40,7 +40,7 @@ public class HibernateApp {
 			session = HibernateUtil.getSessionFactory().openSession();
 			HibernateApp hibernateApp = new HibernateApp();
 			// Create Company and Training/s
-			Integer companyId = hibernateApp.createCompany("Ericsson1");
+			Integer companyId = hibernateApp.createCompany("Ericsson");
 			List<Integer> trainingsList = hibernateApp.createTrainings();
 			// Create Employee/s
 			Integer idEmployee1 = hibernateApp.createEmployee("Ramesh", "Gurgaon", companyId, trainingsList);
@@ -133,8 +133,8 @@ public class HibernateApp {
 			employee.setEmployeeName(name);
 			// Removing HDFC account mapping from Employee. To see the DB update, comment out HibernateApp.deleteEmployee()
 			// If Employee.hbm.xml (set name="accounts") has inverse="true", ACCOUNT table will be responsible to take care of the relationship not the EMPLOYEE
-			// so removing HDFC account from set under Employee and updating Employee in DB will not try to clear(NULL) the ACCOUNT.FK_EMPLOYEE.
-			// Set inverse="false", now EMPLOYEE table will be owner for maintaining relationships and it will make the ACCOUNT.FK_EMPLOYEE as
+			// so removing HDFC account from set under Employee and updating Employee in DB will not try to clear(NULL) the ACCOUNT.EMPLOYEE_ID_EMPLOYEE.
+			// Set inverse="false", now EMPLOYEE table will be owner for maintaining relationships and it will make the ACCOUNT.EMPLOYEE_ID_EMPLOYEE as
 			// null for HDFC account.
 			employee.getAccounts().removeIf(acct -> acct.getBankName() == "HDFC");
 			// Remove mapping(in table Employee_Trng_Mapping) of this employee with training named "Cassandra"
